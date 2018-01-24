@@ -62,14 +62,14 @@
     },
 
 
-/*
+    /*
          _             _     _
      ___| |_ __ _ _ __| |_  | |__   ___ _ __ ___ _
     / __| __/ _` | '__| __| | '_ \ / _ \ '__/ _ (_)
     \__ \ || (_| | |  | |_  | | | |  __/ | |  __/_
     |___/\__\__,_|_|   \__| |_| |_|\___|_|  \___(_)
 
- */
+    */
     /*=========================================================================
     =                 TODO: fill in these Helper Functions                    =
     =========================================================================*/
@@ -79,12 +79,27 @@
     //
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function(rowIndex) {
+      var count = 0;
+      for (var i = 0; i < this.attributes[rowIndex].length; i++) {
+        if (this.attributes[rowIndex][i] === 1) {
+          count++;
+          if (count > 1) {
+            return true;
+          }
+        }
+      }
       return false; // fixme
     },
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
-      return false; // fixme
+      var result = false;
+      for (var i = 0; i < this.attributes.n; i++) {
+        if (this.hasRowConflictAt(i)) {
+          return true;
+        }
+      }
+      return result; // fixme
     },
 
 
@@ -94,12 +109,27 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
+      var count = 0;
+      for (var i = 0; i < this.attributes.n; i++) {
+        if (this.attributes[i][colIndex] === 1) {
+          count++;
+          if (count > 1) {
+            return true;
+          }
+        }
+      }
       return false; // fixme
     },
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
-      return false; // fixme
+      var result = false;
+      for (var i = 0; i < this.attributes.n; i++) {
+        if (this.hasColConflictAt(i)) {
+          return true;
+        }
+      }
+      return result; // fixme
     },
 
 
@@ -109,12 +139,45 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
+      // debugger;
+      var count = 0;
+      for (var i = 0, j = majorDiagonalColumnIndexAtFirstRow; i < this.attributes.n, j < this.attributes.n; i++, j++) {
+        if (this.attributes[i][j] === 1) {
+          count++;
+          if (count > 1) {
+            return true;
+          }
+        }
+      }
+      // for (var i = 0, j = majorDiagonalColumnIndexAtFirstRow; j < this.attributes.n; i++, j++) {
+      //   if (this.attributes[i][j] === 1) {
+      //     count++;
+      //     if (count > 1) {
+      //       return true;
+      //     }
+      //   }
+      // }
+      // count = 0;
+      // for (var i = majorDiagonalColumnIndexAtFirstRow, j = 0; i < this.attributes.n; i++, j++) {
+      //   if (this.attributes[i][j] === 1) {
+      //     count++;
+      //     if (count > 1) {
+      //       return true;
+      //     }
+      //   }
+      // }
       return false; // fixme
     },
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
-      return false; // fixme
+      var result = false;
+      for (var i = 0; i < this.attributes.n; i++) {
+        if (this.hasMajorDiagonalConflictAt(i)) {
+          return true;
+        }
+      }
+      return result; // fixme
     },
 
 
@@ -124,6 +187,24 @@
     //
     // test if a specific minor diagonal on this board contains a conflict
     hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) {
+      var count = 0;
+      for (var i = 0, j = minorDiagonalColumnIndexAtFirstRow; j > 0; i++, j--) {
+        if (this.attributes[i][j] === 1) {
+          count++;
+          if (count > 1) {
+            return true;
+          }
+        }
+      }
+      count = 0;
+      for (var i = minorDiagonalColumnIndexAtFirstRow, j = 0; i < this.attributes.n; i++, j++) {
+        if (this.attributes[i][j] === 1) {
+          count++;
+          if (count > 1) {
+            return true;
+          }
+        }
+      }
       return false; // fixme
     },
 
