@@ -82,7 +82,7 @@
       var count = 0;
       for (var i = 0; i < this.attributes[rowIndex].length; i++) {
         if (this.attributes[rowIndex][i] === 1) {
-          count++;
+          count += 1;
           if (count > 1) {
             return true;
           }
@@ -112,7 +112,7 @@
       var count = 0;
       for (var i = 0; i < this.attributes.n; i++) {
         if (this.attributes[i][colIndex] === 1) {
-          count++;
+          count += 1;
           if (count > 1) {
             return true;
           }
