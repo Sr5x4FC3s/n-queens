@@ -29,13 +29,11 @@ window.findNRooksSolution = function(n) {
           return;
         }
         placeRook(row + 1);
-      } else {
-        board.togglePiece(row, i);
-      }
-
+      } 
       if (isFinish === true) {
         return;
       }
+      board.togglePiece(row, i);
     }
   };
 
@@ -69,10 +67,8 @@ window.countNRooksSolutions = function(n) {
           return;
         }
         placeRook(row + 1);
-        board.togglePiece(row, i);
-      } else {
-        board.togglePiece(row, i);
       }
+      board.togglePiece(row, i);
     }
   };
 
@@ -101,14 +97,11 @@ window.findNQueensSolution = function(n) {
           return;
         }
         placeQueen(row + 1);
-        board.togglePiece(row, i);
-      } else {
-        board.togglePiece(row, i);
       }
-
       if (isFinish === true) {
         return;
       }
+      board.togglePiece(row, i);
     }
   };
 
@@ -125,7 +118,33 @@ window.findNQueensSolution = function(n) {
 
 // return the number of nxn chessboards that exist, with n queens placed such that none of them can attack each other
 window.countNQueensSolutions = function(n) {
-  var solutionCount = undefined; //fixme
+  var solutionCount = 0; //fixme
+  if (n === 0) return 1;
+  var board = new Board({'n': n});
+  var isFinish = false;
+  var placeQueen = function(row) {
+
+    for (var i = 0; i < n; i++) {
+      board.togglePiece(row, i);
+
+      if (isValid(row, i)) {
+        if (row === n - 1) {
+          board.togglePiece(row, i);
+          // isFinish = true;
+          solutionCount += 1;
+          return;
+        }
+        placeQueen(row + 1);
+      }
+      board.togglePiece(row, i);
+    }
+  };
+
+  var isValid = function(row, column) {
+    return (!board.hasRowConflictAt(row) && !board.hasColConflictAt(column) && !board.hasMajorDiagonalConflictAt(board._getFirstRowColumnIndexForMajorDiagonalOn(row, column)) && !board.hasMinorDiagonalConflictAt(board._getFirstRowColumnIndexForMinorDiagonalOn(row, column)));
+  };
+  debugger;
+  placeQueen(0);
 
   console.log('Number of solutions for ' + n + ' queens:', solutionCount);
   return solutionCount;
